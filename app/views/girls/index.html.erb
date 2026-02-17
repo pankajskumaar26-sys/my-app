@@ -1,0 +1,165 @@
+<div class="min-h-screen bg-gradient-to-br from-pink-50 via-white to-pink-100 px-4 sm:px-8 py-12">
+
+  <!-- Heading -->
+  <div class="text-center mb-12">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-pink-600 tracking-wide">
+      ✨ Girls List
+    </h1>
+    <p class="text-gray-500 mt-2">Explore beautiful profiles</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="space-y-12 max-w-6xl mx-auto">
+
+    <% @girls.each do |girl| %>
+
+      <div class="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition duration-500 overflow-hidden group">
+
+      <div class="flex flex-col md:flex-row">
+
+      <!-- IMAGE SECTION -->
+      <!-- IMAGE SECTION -->
+      <div class="md:w-2/5 relative h-72 md:h-80 overflow-hidden">
+      
+        <% if girl.images.attached? %>
+          <div class="relative w-full h-full slider">
+      
+            <% girl.images.each_with_index do |image, index| %>
+              <%= image_tag image,
+                  class: "slide absolute inset-0 w-full h-full object-cover transition-opacity duration-700 #{index == 0 ? 'opacity-100' : 'opacity-0'}" %>
+            <% end %>
+      
+            <!-- Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none"></div>
+      
+            <!-- Name Badge -->
+            <div class="absolute bottom-4 left-4 bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-white shadow-lg z-10">
+              <h2 class="text-lg font-semibold leading-tight">
+                <%= girl.name %>, <%= girl.age %> yrs
+              </h2>
+              <p class="text-xs opacity-90">📍 <%= girl.city %></p>
+            </div>
+      
+            <!-- Prev Button -->
+            <button class="prev absolute left-3 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-md text-white px-3 py-1 rounded-full z-10">
+              ‹
+            </button>
+      
+            <!-- Next Button -->
+            <button class="next absolute right-3 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-md text-white px-3 py-1 rounded-full z-10">
+              ›
+            </button>
+      
+            <!-- Dots -->
+            <div class="absolute bottom-3 right-4 flex gap-2 z-10">
+              <% girl.images.each_with_index do |_, index| %>
+                <div class="dot w-2.5 h-2.5 rounded-full #{index == 0 ? 'bg-white' : 'bg-white/50'}"></div>
+              <% end %>
+            </div>
+      
+          </div>
+        <% else %>
+          <div class="w-full h-full flex items-center justify-center text-gray-400 bg-gray-200">
+            No Image
+          </div>
+        <% end %>
+      
+      </div>
+      
+
+          <!-- DETAILS SECTION -->
+          <div class="md:w-3/5 p-6 md:p-8">
+
+            <div class="grid grid-cols-2 gap-4 mb-6 text-sm sm:text-base">
+
+              <div class="bg-pink-50 p-3 rounded-xl shadow-sm">
+                <span class="font-medium text-gray-700">Height</span>
+                <p class="text-gray-600"><%= girl.height %></p>
+              </div>
+
+              <div class="bg-pink-50 p-3 rounded-xl shadow-sm">
+                <span class="font-medium text-gray-700">Weight</span>
+                <p class="text-gray-600"><%= girl.weight %></p>
+              </div>
+
+              <div class="bg-pink-50 p-3 rounded-xl shadow-sm">
+                <span class="font-medium text-gray-700">Body</span>
+                <p class="text-gray-600"><%= girl.body_type %></p>
+              </div>
+
+              <div class="bg-pink-50 p-3 rounded-xl shadow-sm">
+                <span class="font-medium text-gray-700">Chest</span>
+                <p class="text-gray-600"><%= girl.chest_size %></p>
+              </div>
+
+            </div>
+
+            <p class="text-gray-500 leading-relaxed mb-6 text-sm sm:text-base">
+              <%= truncate(girl.description, length: 140) %>
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex gap-4">
+            <%= link_to "View Profile", girl_path(girl),
+            class: "px-6 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-full shadow-md transition inline-block text-center" %>
+        
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>
+<script>
+document.querySelectorAll(".slider").forEach(slider => {
+  const slides = slider.querySelectorAll(".slide");
+  const dots = slider.querySelectorAll(".dot");
+  const nextBtn = slider.querySelector(".next");
+  const prevBtn = slider.querySelector(".prev");
+
+  let current = 0;
+  let total = slides.length;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove("opacity-100");
+      slide.classList.add("opacity-0");
+      if (dots[i]) {
+        dots[i].classList.remove("bg-white");
+        dots[i].classList.add("bg-white/50");
+      }
+    });
+
+    slides[index].classList.remove("opacity-0");
+    slides[index].classList.add("opacity-100");
+
+    if (dots[index]) {
+      dots[index].classList.remove("bg-white/50");
+      dots[index].classList.add("bg-white");
+    }
+  }
+
+  function nextSlide() {
+    current = (current + 1) % total;
+    showSlide(current);
+  }
+
+  function prevSlide() {
+    current = (current - 1 + total) % total;
+    showSlide(current);
+  }
+
+  nextBtn?.addEventListener("click", nextSlide);
+  prevBtn?.addEventListener("click", prevSlide);
+
+  if (total > 1) {
+    setInterval(nextSlide, 3000);
+  }
+});
+</script>

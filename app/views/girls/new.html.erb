@@ -1,0 +1,150 @@
+<div class="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100">
+
+  <!-- 🔝 Top Navbar -->
+  <div class="flex justify-between items-center px-8 py-4 backdrop-blur-md ">
+
+    <!-- Left: Home Button -->
+    <%= link_to "🏠 Home",
+        root_path,
+        class: "bg-indigo-500 text-white px-5 py-2 rounded-full 
+                shadow hover:bg-indigo-600 hover:scale-105 
+                transition duration-300" %>
+
+    <!-- Right: Logout -->
+    <% if admin_signed_in? %>
+      <%= button_to "Logout",
+          destroy_admin_session_path,
+          method: :delete,
+          class: "bg-red-500 text-white px-5 py-2 rounded-full 
+                  shadow hover:bg-red-600 hover:scale-105 
+                  transition duration-300" %>
+    <% end %>
+    <% if notice %>
+    <div 
+      id="flash-message"
+      class="fixed top-5 right-5 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg 
+             transform transition-all duration-500 translate-x-full opacity-0">
+      <%= notice %>
+    </div>
+
+    <script>
+      document.addEventListener("turbo:load", () => {
+        const flash = document.getElementById("flash-message");
+
+        // Slide in
+        setTimeout(() => {
+          flash.classList.remove("translate-x-full", "opacity-0");
+          flash.classList.add("translate-x-0", "opacity-100");
+        }, 100);
+
+        // Slide out after 3 seconds
+        setTimeout(() => {
+          flash.classList.add("translate-x-full", "opacity-0");
+        }, 3000);
+
+        // Remove from DOM
+        setTimeout(() => {
+          flash.remove();
+        }, 3500);
+      });
+    </script>
+  <% end %>
+
+
+  </div>
+
+  <!-- 📝 Form Section -->
+  <div class="flex items-center justify-center p-8">
+
+    <div class="w-full max-w-4xl bg-white/70 backdrop-blur-lg shadow-2xl rounded-3xl p-8 
+                transform transition-all duration-700 hover:scale-[1.01] animate-fadeIn">
+
+      <h1 class="text-3xl font-extrabold text-gray-800 tracking-wide mb-8">
+        ✨ Add New Girl
+      </h1>
+
+      <%= form_with(model: @girl, local: true, html: { multipart: true }) do |form| %>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 <%= 'animate-fadeIn' if flash[:show_animation] %>">
+
+          <div class="md:col-span-2">
+            <%= form.label :images, class: "block font-semibold text-gray-700 mb-2" %>
+            <%= form.file_field :images, multiple: true,
+                class: "w-full border-2 border-dashed border-pink-300 
+                        rounded-xl p-4 bg-white hover:border-pink-500 
+                        transition duration-300" %>
+          </div>
+
+          <div>
+            <%= form.label :name, class: "block font-semibold text-gray-700 mb-1" %>
+            <%= form.text_field :name,
+                class: "w-full border rounded-xl p-3 focus:ring-2 focus:ring-pink-400 
+                        focus:outline-none transition duration-300 shadow-sm" %>
+          </div>
+
+          <div>
+            <%= form.label :age, class: "block font-semibold text-gray-700 mb-1" %>
+            <%= form.number_field :age,
+                class: "w-full border rounded-xl p-3 focus:ring-2 focus:ring-pink-400 
+                        focus:outline-none transition duration-300 shadow-sm" %>
+          </div>
+
+          <div>
+            <%= form.label :city, class: "block font-semibold text-gray-700 mb-1" %>
+            <%= form.text_field :city,
+                class: "w-full border rounded-xl p-3 focus:ring-2 focus:ring-purple-400 
+                        focus:outline-none transition duration-300 shadow-sm" %>
+          </div>
+
+          <div>
+            <%= form.label :weight, class: "block font-semibold text-gray-700 mb-1" %>
+            <%= form.number_field :weight, step: 0.1,
+                class: "w-full border rounded-xl p-3 focus:ring-2 focus:ring-purple-400 
+                        focus:outline-none transition duration-300 shadow-sm" %>
+          </div>
+
+          <div>
+            <%= form.label :height, class: "block font-semibold text-gray-700 mb-1" %>
+            <%= form.number_field :height, step: 0.1,
+                class: "w-full border rounded-xl p-3 focus:ring-2 focus:ring-blue-400 
+                        focus:outline-none transition duration-300 shadow-sm" %>
+          </div>
+
+          <div>
+            <%= form.label :chest_size, class: "block font-semibold text-gray-700 mb-1" %>
+            <%= form.text_field :chest_size,
+                class: "w-full border rounded-xl p-3 focus:ring-2 focus:ring-blue-400 
+                        focus:outline-none transition duration-300 shadow-sm" %>
+          </div>
+
+          <div>
+            <%= form.label :body_type, class: "block font-semibold text-gray-700 mb-1" %>
+            <%= form.text_field :body_type,
+                class: "w-full border rounded-xl p-3 focus:ring-2 focus:ring-pink-400 
+                        focus:outline-none transition duration-300 shadow-sm" %>
+          </div>
+
+        </div>
+
+        <div class="mt-6">
+          <%= form.label :description, class: "block font-semibold text-gray-700 mb-2" %>
+          <%= form.text_area :description, rows: 4,
+              class: "w-full border rounded-xl p-3 focus:ring-2 focus:ring-indigo-400 
+                      focus:outline-none transition duration-300 shadow-sm" %>
+        </div>
+
+        <div class="mt-8">
+          <%= form.submit "💖 Save Girl",
+              class: "w-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 
+                      text-white py-3 rounded-xl font-semibold text-lg
+                      hover:opacity-90 hover:scale-[1.02]
+                      transition duration-300 shadow-lg" %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+
