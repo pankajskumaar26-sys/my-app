@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Gurpreet" %></title>
+  <title>Premium Profiles | Exclusive Companionship Services</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Explore verified premium profiles. Safe, private and exclusive companionship platform. 18+ only.">
+<meta name="keywords" content="premium profiles, verified profiles, exclusive companionship, private profiles">
+<meta name="author" content="Your Website Name">
+
+<meta property="og:title" content="Premium Profiles">
+<meta property="og:description" content="Explore beautiful verified profiles safely and privately.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="<%= request.original_url %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -18,6 +26,95 @@
   </head>
 
   <body>
+  <!-- HEADER START -->
+<header class="bg-white shadow-md sticky top-0 z-40">
+
+  <div class="max-w-full mx-auto px-4 sm:px-8 py-4 flex justify-between items-center">
+
+    <!-- Logo / Website Name -->
+    <div>
+      <h2 class="text-2xl font-extrabold text-pink-600 tracking-wide">
+        YourWebsiteName
+      </h2>
+    </div>
+
+    <!-- Desktop Menu -->
+    <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+    
+   <% if admin_signed_in? %>
+      <%= link_to "New Girl", new_girl_path,
+      class: "hover:text-pink-600 transition" %>
+   <% end %>
+
+  <%= link_to "Home", root_path,
+      class: "hover:text-pink-600 transition" %>
+
+  <%= link_to "Rates", rates_path,
+      class: "hover:text-pink-600 transition" %>
+
+  <%= link_to "Services", services_path,
+      class: "hover:text-pink-600 transition" %>
+
+  <%= link_to "Location", location_path,
+      class: "hover:text-pink-600 transition" %>
+
+  <%= link_to "Contact", contact_path,
+      class: "bg-pink-600 text-white px-5 py-2 rounded-full hover:bg-pink-700 transition" %>
+
+</nav>
+
+    <!-- Mobile Button -->
+    <button id="menuBtn" class="md:hidden text-pink-600 text-2xl">
+      ☰
+    </button>
+
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
+
+    <div class="flex flex-col text-center py-4 space-y-4 text-sm font-medium">
+
+      <%= link_to "Home", root_path, class: "hover:text-pink-600" %>
+  <%= link_to "Rates", rates_path,
+      class: "hover:text-pink-600" %>
+
+  <%= link_to "Services", services_path,
+      class: "hover:text-pink-600" %>
+
+  <%= link_to "Location", location_path,
+      class: "hover:text-pink-600" %>
+
+  <%= link_to "Contact", contact_path,
+      class: "bg-pink-600 text-white px-5 py-2 rounded-full hover:bg-pink-700" %>
+
+    </div>
+
+  </div>
+
+</header>
   <%= yield %>
+<footer class="mt-16 bg-gray-50 border-t">
+
+  <!-- Disclaimer Section -->
+  <div class="max-w-6xl mx-auto px-6 py-8 text-center">
+    <h3 class="font-semibold text-gray-800 mb-3">Disclaimer</h3>
+    <p class="text-gray-600 text-sm leading-relaxed max-w-3xl mx-auto">
+      This website is strictly intended for adults aged 18 and above.
+      By accessing this platform, you confirm that you are legally allowed 
+      to view such content in your jurisdiction.
+      We do not promote or condone illegal activities.
+      Viewer discretion is advised.
+    </p>
+  </div>
+
+  <!-- Bottom Footer -->
+  <div class="text-center py-6 border-t text-sm text-gray-500">
+    © 2026 Your Website Name |
+    <%= link_to "Terms of Use", "/terms", class: "hover:text-pink-600 transition duration-200" %> |
+    <%= link_to "Privacy Policy", "/privacy", class: "hover:text-pink-600 transition duration-200" %>
+  </div>
+
+</footer>
 </body>
 </html>

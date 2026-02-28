@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   resources :girls
   devise_for :admins
+  get "/terms", to: "pages#terms"
+get "/privacy", to: "pages#privacy"
+get "/services", to: "pages#services"
+get "/location", to: "pages#location"
+get "/contact", to: "pages#contact"
+resources :website_contacts
+resources :rates
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

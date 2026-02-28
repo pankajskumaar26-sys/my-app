@@ -1,0 +1,41 @@
+<div class="max-w-xl mx-auto py-12 px-6">
+
+  <h1 class="text-3xl font-bold text-pink-600 mb-8 text-center">
+    Add Website Contact
+  </h1>
+
+  <%= form_with model: @website_contact, local: true, html: { multipart: true } do |f| %>
+
+    <div class="mb-4">
+      <%= f.label :name, class: "block font-medium" %>
+      <%= f.text_field :name, class: "w-full border p-2 rounded-lg" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :contact_no, class: "block font-medium" %>
+      <%= f.text_field :contact_no, class: "w-full border p-2 rounded-lg" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :whatsapp_no, class: "block font-medium" %>
+      <%= f.text_field :whatsapp_no, class: "w-full border p-2 rounded-lg" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :website_name, class: "block font-medium" %>
+      <%= f.text_field :website_name, class: "w-full border p-2 rounded-lg" %>
+    </div>
+
+    <div class="mb-6">
+      <%= f.label :website_image, class: "block font-medium" %>
+      <%= f.file_field :website_image, class: "w-full" %>
+    </div>
+
+    <div class="text-center">
+      <%= f.submit "Create Contact",
+          class: "bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded-full" %>
+    </div>
+
+  <% end %>
+
+</div>

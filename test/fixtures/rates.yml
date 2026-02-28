@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  rate_per_hour: 9.99
+  rate_short: 9.99
+  rate_full_night: 9.99
+
+two:
+  name: MyString
+  rate_per_hour: 9.99
+  rate_short: 9.99
+  rate_full_night: 9.99
